@@ -11,13 +11,14 @@ import java.awt.image.BufferedImage;
  */
 public class Main {
     public static void main(String[] args) throws CloneNotSupportedException{
-        System.out.println("alive!");
+        String path = args[0];
+        int outputGeneration = Integer.valueOf(args[1]);
 
-        String path = "./data/input-images/coupleSmall.jpg";
+
         BufferedImage imageSalam = graphics.Utils.loadImage(path);
         BufferedImage imageGrey = graphics.Utils.imageToGreyscale(imageSalam);
 
-        graphics.Utils.saveImage(imageGrey, "png", "salamsalam");
+        graphics.Utils.saveImage(imageGrey, "png", "output");
 
         GeneImage geneImage = new GeneImage(500, imageGrey);
         GeneImage geneImage2;
@@ -31,11 +32,11 @@ public class Main {
             geneImage2 = (GeneImage)geneImage.clone();
 
 
-            if (i % 50000 == 0) {
+            if (i % outputGeneration == 0) {
                 System.out.println(geneImage.getFitness());
 
                 graphics.Utils.saveImage
-                        (geneImage.getImage(), "png", "Salam" + i);
+                        (geneImage.getImage(), "png", "Output" + i);
             }
 
 

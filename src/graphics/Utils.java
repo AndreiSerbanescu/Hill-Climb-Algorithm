@@ -30,7 +30,7 @@ public class Utils {
         return imageGrey;
     }
     public static void saveImage(RenderedImage image, String format, String fileName) {
-        saveImage(image, format, new File("data/output-images/" + fileName));
+        saveImage(image, format, new File(fileName));
     }
 
     public static void initSwingFrame(JFrame frame) {
