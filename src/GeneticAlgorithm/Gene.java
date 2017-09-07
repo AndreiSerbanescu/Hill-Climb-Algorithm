@@ -7,15 +7,13 @@ import java.util.Random;
  * Created by andrei on 7/25/17.
  */
 
-
-//TODO reformat mutation by making a rect consist only of points
 public class Gene {
 
-    private double addPointMutRate = 1d / 3000;
-    private double deletePointMutRate = addPointMutRate / 2;
+    private double addPointMutRate = 1d / 1500;
+    private double deletePointMutRate = addPointMutRate;
 
-    private double xMutRate = 1d / 700;
-    private double yMutRate = 1d / 700;
+    private double xMutRate = 1d / 1500;
+    private double yMutRate = 1d / 1500;
     private double transparencyMutRate = 1d / 1500;
     private double greyscaleMutRate = 1d / 1500;
     private double transparencyMaxMutPercent = 0.2;
@@ -24,13 +22,6 @@ public class Gene {
     private GenePolygon polygon;
     private int transparency;
     private int greyscale;
-
-    /*
-    public Gene(int x, int y, int width, int height, int greyscale, int transparency) {
-        rectangle = new Rectangle(x, y, width, height);
-        this.transparency = transparency;
-        this.greyscale = greyscale;
-    } */
 
     public Gene(GenePolygon polygon, int greyscale, int transparency) {
         this.polygon = polygon;
@@ -44,6 +35,7 @@ public class Gene {
     Polygon getPolygon() {
         return polygon;
     }
+
     boolean mutate() {
         Random rand = new Random();
         boolean isMutated = false;
@@ -84,7 +76,6 @@ public class Gene {
         return isMutated;
     }
     private void mutateAddPoint() {
-        //System.out.println("added point");
         Random rand = new Random();
         int x = rand.nextInt(Utils.imageWidth * 2);
         x -= (Utils.imageWidth / 2);
@@ -97,7 +88,7 @@ public class Gene {
         if (polygon.npoints == 3) {
             return;
         }
-        //System.out.println("deleted point!");
+
         Random rand = new Random();
         int index = rand.nextInt(polygon.npoints);
         Polygon newPolygon = new Polygon();
@@ -109,7 +100,9 @@ public class Gene {
     }
 
     private void mutateX(int index, double randDouble) {
-        if (randDouble <= xMutRate / 4) {
+        if (randDouble <= xMutRate / 8) {
+            mutateXHelper(index, 4);
+        } else if (randDouble <= xMutRate / 4) {
             mutateXHelper(index, 3);
         } else if (randDouble <= xMutRate / 2) {
             mutateXHelper(index, 2);
@@ -118,8 +111,9 @@ public class Gene {
         }
     }
     private void mutateY(int index, double randDouble) {
-
-        if (randDouble <= yMutRate / 4) {
+        if (randDouble <= xMutRate / 8) {
+            mutateXHelper(index, 4);
+        } else if (randDouble <= yMutRate / 4) {
             mutateYHelper(index, 3);
         } else if (randDouble <= yMutRate / 2) {
             mutateYHelper(index, 2);
@@ -129,14 +123,14 @@ public class Gene {
     }
 
     private void mutateXHelper(int index, int type) {
-        int newX = mutateCoord(index, polygon.xpoints[index], type, Utils.imageWidth);
+        int newX = mutateCoord(polygon.xpoints[index], type, Utils.imageWidth);
         polygon.setX(index, newX);
     }
     private void mutateYHelper(int index, int type) {
-        int newY = mutateCoord(index, polygon.ypoints[index], type, Utils.imageHeight);
+        int newY = mutateCoord(polygon.ypoints[index], type, Utils.imageHeight);
         polygon.setY(index, newY);
     }
-    private int mutateCoord(int index, int coord, int type, int maxBound) {
+    private int mutateCoord(int coord, int type, int maxBound) {
         int initDistance = 0;
         switch (type) {
             case 1:
@@ -147,6 +141,9 @@ public class Gene {
                 break;
             case 3:
                 initDistance = (int) Math.floor(maxBound * 0.4);
+                break;
+            case 4:
+                initDistance = (int) Math.floor(maxBound * 0.7);
         }
 
         Random rand = new Random();
@@ -164,16 +161,19 @@ public class Gene {
 
     private void mutateTransparency(double randDouble) {
         Random rand = new Random();
-        int difference = rand.nextInt(30);
+        int difference = rand.nextInt(15);
 
         if (randDouble <= transparencyMutRate / 2) {
-            difference += 30;
+            difference += 15;
         }
         if (randDouble <= transparencyMutRate / 4) {
-            difference += 30;
+            difference += 15;
         }
         if (randDouble <= transparencyMutRate / 8) {
-            difference += 30;
+            difference += 15;
+        }
+        if (randDouble <= transparencyMutRate / 16) {
+            difference += 15;
         }
 
         if (rand.nextInt(2) == 0) {
@@ -194,13 +194,16 @@ public class Gene {
         int difference = rand.nextInt(30);
 
         if (randDouble <= greyscaleMutRate / 2) {
-            difference += 30;
+            difference += 15;
         }
         if (randDouble <= greyscaleMutRate / 4) {
-            difference += 30;
+            difference += 15;
         }
         if (randDouble <= greyscaleMutRate / 8) {
-            difference += 30;
+            difference += 15;
+        }
+        if (randDouble <= greyscaleMutRate / 16) {
+            difference += 15;
         }
 
         if (rand.nextInt(2) == 0) {
