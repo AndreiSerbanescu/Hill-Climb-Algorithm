@@ -84,8 +84,8 @@ public class Utils {
         return newRgb;
     }
     private static double rgbToGrey(int blue, int green, int red) {
-        //return red * 0.2126 + green * 0.7152 + red * 0.0722;
-        return (red + green + blue) / 3;
+        return red * 0.2126 + green * 0.7152 + red * 0.0722;
+        //return (red + green + blue) / 3;
     }
 
     //PRE: the image is already in greyscale

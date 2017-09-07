@@ -11,8 +11,16 @@ import java.awt.image.BufferedImage;
  */
 public class Main {
     public static void main(String[] args) throws CloneNotSupportedException{
-        String path = args[0];
-        int outputGeneration = Integer.valueOf(args[1]);
+        String path;
+        int outputGeneration;
+
+        if (args.length == 2) {
+            path = args[0];
+            outputGeneration = Integer.valueOf(args[1]);
+        } else {
+            path = "./start.jpg";
+            outputGeneration = 50000;
+        }
 
 
         BufferedImage imageSalam = graphics.Utils.loadImage(path);
@@ -20,7 +28,7 @@ public class Main {
 
         graphics.Utils.saveImage(imageGrey, "png", "output");
 
-        GeneImage geneImage = new GeneImage(500, imageGrey);
+        GeneImage geneImage = new GeneImage(50, imageGrey);
         GeneImage geneImage2;
 
         BufferedImage image = new BufferedImage(500, 500, imageGrey.getType());

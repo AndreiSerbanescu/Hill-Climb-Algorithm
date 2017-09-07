@@ -161,19 +161,21 @@ public class Gene {
 
     private void mutateTransparency(double randDouble) {
         Random rand = new Random();
-        int difference = rand.nextInt(15);
+        int mutDiff = 15;
+
+        int difference = rand.nextInt(mutDiff);
 
         if (randDouble <= transparencyMutRate / 2) {
-            difference += 15;
+            difference += mutDiff;
         }
         if (randDouble <= transparencyMutRate / 4) {
-            difference += 15;
+            difference += mutDiff;
         }
         if (randDouble <= transparencyMutRate / 8) {
-            difference += 15;
+            difference += mutDiff;
         }
         if (randDouble <= transparencyMutRate / 16) {
-            difference += 15;
+            difference += mutDiff;
         }
 
         if (rand.nextInt(2) == 0) {
@@ -182,8 +184,8 @@ public class Gene {
 
         transparency = transparency + difference;
 
-        if (transparency <= 0) {
-            transparency = 1;
+        if (transparency <= Utils.minTransparency) {
+            transparency = Utils.minTransparency;
         } else if (transparency > Utils.maxTransparency) {
             transparency = Utils.maxTransparency;
         }

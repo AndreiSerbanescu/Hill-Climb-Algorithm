@@ -19,9 +19,9 @@ public class GeneImage {
     private BufferedImage startImage;
     private BufferedImage rectangleImage;
 
-    private double addMutRate = 1d / 350;
-    private double removeMutRate = 1d / 350;
-    private double swapRate = 1d / 350;
+    private double addMutRate = 1d / 700;
+    private double removeMutRate = 1d / 1500;
+    private double swapRate = 1d / 700;
 
     private boolean isComputed = false;
 
