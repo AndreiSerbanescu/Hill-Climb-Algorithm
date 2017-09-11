@@ -1,5 +1,6 @@
 package GeneticAlgorithm;
 
+import javax.rmi.CORBA.Util;
 import java.awt.*;
 import java.util.Random;
 
@@ -64,12 +65,12 @@ public class Gene {
 
         randNo = rand.nextDouble();
         if (randNo <= transparencyMutRate) {
-            mutateTransparency(randNo);
+            mutateTransparency();
             isMutated = true;
         }
         randNo = rand.nextDouble();
         if (randNo <= greyscaleMutRate) {
-            mutateGreyscale(randNo);
+            mutateGreyscale();
             isMutated = true;
         }
 
@@ -159,66 +160,14 @@ public class Gene {
         return newC;
     }
 
-    private void mutateTransparency(double randDouble) {
+    private void mutateTransparency() {
         Random rand = new Random();
-        int mutDiff = 15;
-
-        int difference = rand.nextInt(mutDiff);
-
-        if (randDouble <= transparencyMutRate / 2) {
-            difference += mutDiff;
-        }
-        if (randDouble <= transparencyMutRate / 4) {
-            difference += mutDiff;
-        }
-        if (randDouble <= transparencyMutRate / 8) {
-            difference += mutDiff;
-        }
-        if (randDouble <= transparencyMutRate / 16) {
-            difference += mutDiff;
-        }
-
-        if (rand.nextInt(2) == 0) {
-            difference = -difference;
-        }
-
-        transparency = transparency + difference;
-
-        if (transparency <= Utils.minTransparency) {
-            transparency = Utils.minTransparency;
-        } else if (transparency > Utils.maxTransparency) {
-            transparency = Utils.maxTransparency;
-        }
+        transparency = Utils.minTransparency + rand.nextInt(Utils.maxTransparency - Utils.minTransparency);
     }
 
-    private void mutateGreyscale(double randDouble) {
+    private void mutateGreyscale() {
         Random rand = new Random();
-        int difference = rand.nextInt(30);
-
-        if (randDouble <= greyscaleMutRate / 2) {
-            difference += 15;
-        }
-        if (randDouble <= greyscaleMutRate / 4) {
-            difference += 15;
-        }
-        if (randDouble <= greyscaleMutRate / 8) {
-            difference += 15;
-        }
-        if (randDouble <= greyscaleMutRate / 16) {
-            difference += 15;
-        }
-
-        if (rand.nextInt(2) == 0) {
-            difference = -difference;
-        }
-
-        greyscale = greyscale + difference;
-
-        if (greyscale <= 0) {
-            greyscale = 1;
-        } else if (greyscale > Utils.maxTransparency) {
-            greyscale = Utils.maxTransparency;
-        }
+        greyscale = rand.nextInt(255);
     }
 
     @Override
