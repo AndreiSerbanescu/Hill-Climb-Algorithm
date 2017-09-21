@@ -13,10 +13,10 @@ public class Gene {
     private double addPointMutRate = 1d / 1500;
     private double deletePointMutRate = addPointMutRate;
 
-    private double xMutRate = 1d / 1500;
-    private double yMutRate = 1d / 1500;
-    private double transparencyMutRate = 1d / 1500;
-    private double greyscaleMutRate = 1d / 1500;
+    private double xMutRate = 1d / 500;
+    private double yMutRate = 1d / 500;
+    private double transparencyMutRate = 1d / 500;
+    private double greyscaleMutRate = 1d / 500;
     private double transparencyMaxMutPercent = 0.2;
 
 
