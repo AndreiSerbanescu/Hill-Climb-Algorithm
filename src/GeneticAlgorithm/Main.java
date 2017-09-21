@@ -28,7 +28,7 @@ public class Main {
 
         graphics.Utils.saveImage(imageGrey, "png", "output");
 
-        GeneImage geneImage = new GeneImage(50, imageGrey);
+        GeneImage geneImage = new GeneImage(200, imageGrey);
         GeneImage geneImage2;
 
         BufferedImage image = new BufferedImage(500, 500, imageGrey.getType());
